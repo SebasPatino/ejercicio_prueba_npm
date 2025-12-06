@@ -16,7 +16,8 @@ import {
     contarParticipantes, 
     evaluarProyecto,
     generarRecomendaciones,
-    analizarUsuarios
+    analizarUsuarios,
+    procesarInventario
 } from "./modulos/index.js";
 
 
@@ -247,47 +248,73 @@ const prompt = nombre();
 // EJERCICIO 16
 // -------------------------------------------------------------------------------------------
 
-// Definimos un arreglo de usuarios como ejemplo.
-const usuarios = [
-  { id: 1, nombre: "Juan", publicaciones: ["inapropiado"], reportes: [1,2,3,4,5,6], fechaRegistro: "2025-11-20", estado: "activo" },
-  { id: 2, nombre: "Karol", publicaciones: ["normal"], reportes: [1,2], fechaRegistro: "2025-09-01", estado: "activo" },
-  { id: 3, nombre: "Frank", publicaciones: [], reportes: [1,2,3], fechaRegistro: "2025-12-01", estado: "activo" }
+// // Definimos un arreglo de usuarios como ejemplo.
+// const usuarios = [
+//   { id: 1, nombre: "Juan", publicaciones: ["inapropiado"], reportes: [1,2,3,4,5,6], fechaRegistro: "2025-11-20", estado: "activo" },
+//   { id: 2, nombre: "Karol", publicaciones: ["normal"], reportes: [1,2], fechaRegistro: "2025-09-01", estado: "activo" },
+//   { id: 3, nombre: "Frank", publicaciones: [], reportes: [1,2,3], fechaRegistro: "2025-12-01", estado: "activo" }
+// ];
+
+// // Definimos un callback de análisis de riesgo
+// const callbackAnalisis = usuario => {
+//   let nivel = 0;
+//   let motivo = "Sin riesgo";
+
+//   // Regla 1: más de 5 reportes = nivel mínimo 3
+//   if (usuario.reportes.length > 5) {
+//     nivel = 3;
+//     motivo = "Más de 5 reportes";
+//   }
+
+//   // Regla 2: publicaciones inapropiadas aumentan riesgo
+//   if (usuario.publicaciones.includes("inapropiado")) {
+//     nivel = Math.max(nivel, 4);
+//     motivo = "Publicaciones inapropiadas";
+//   }
+
+//   // Regla 3: usuario nuevo (< 30 días) con reportes aumenta riesgo
+//   const diasDesdeRegistro = (Date.now() - new Date(usuario.fechaRegistro).getTime()) / (1000 * 60 * 60 * 24);
+//   if (diasDesdeRegistro < 30 && usuario.reportes.length > 0) {
+//     nivel = Math.max(nivel, 5);
+//     motivo = "Usuario nuevo con reportes";
+//   }
+
+//   return {
+//     sospechoso: nivel > 0,
+//     nivel,
+//     motivo
+//   };
+// };
+
+// // Ejecutamos el análisis
+// const reporte = analizarUsuarios(usuarios, callbackAnalisis);
+
+// // Mostramos el resultado
+// console.log("Informe global:", reporte.informe);
+// console.log("Detalle de usuarios:", reporte.detalle);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 17
+// -------------------------------------------------------------------------------------------
+
+// Inventario de ejemplo
+const inventario = [
+  { id: 1, nombre: "Leche", categoria: "Lácteos", stock: 10, precio: 2.5, perecedero: true, fechaVencimiento: "2025-12-10" },
+  { id: 2, nombre: "Arroz", categoria: "Granos", stock: 50, precio: 1.2, perecedero: false },
+  { id: 3, nombre: "Carne", categoria: "Cárnicos", stock: 5, precio: 8.0, perecedero: true, fechaVencimiento: "2025-12-08" },
+  { id: 4, nombre: "Pan", categoria: "Panadería", stock: 20, precio: 1.5, perecedero: true, fechaVencimiento: "2025-12-07" }
 ];
 
-// Definimos un callback de análisis de riesgo
-const callbackAnalisis = usuario => {
-  let nivel = 0;
-  let motivo = "Sin riesgo";
-
-  // Regla 1: más de 5 reportes = nivel mínimo 3
-  if (usuario.reportes.length > 5) {
-    nivel = 3;
-    motivo = "Más de 5 reportes";
-  }
-
-  // Regla 2: publicaciones inapropiadas aumentan riesgo
-  if (usuario.publicaciones.includes("inapropiado")) {
-    nivel = Math.max(nivel, 4);
-    motivo = "Publicaciones inapropiadas";
-  }
-
-  // Regla 3: usuario nuevo (< 30 días) con reportes aumenta riesgo
-  const diasDesdeRegistro = (Date.now() - new Date(usuario.fechaRegistro).getTime()) / (1000 * 60 * 60 * 24);
-  if (diasDesdeRegistro < 30 && usuario.reportes.length > 0) {
-    nivel = Math.max(nivel, 5);
-    motivo = "Usuario nuevo con reportes";
-  }
-
-  return {
-    sospechoso: nivel > 0,
-    nivel,
-    motivo
-  };
+// Callback de control: ejemplo de regla personalizada
+const reglaControl = producto => {
+  if (producto.stock < 10) return "retirar";
+  if (producto.perecedero) return "vigilar";
+  if (producto.precio > 5) return "ajustar precio";
+  return "estable";
 };
 
-// Ejecutamos el análisis
-const reporte = analizarUsuarios(usuarios, callbackAnalisis);
+// Procesamos el inventario
+const reporte = procesarInventario(inventario, reglaControl);
 
-// Mostramos el resultado
-console.log("Informe global:", reporte.informe);
-console.log("Detalle de usuarios:", reporte.detalle);
+// Mostramos el informe
+console.log("Informe completo del inventario:", reporte);
