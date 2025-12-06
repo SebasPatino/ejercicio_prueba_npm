@@ -8,7 +8,8 @@ import {
     registrarProductos,
     buscarCursos,
     procesarPagos,
-    fusionarUsuarios
+    fusionarUsuarios,
+    generarResumen
 } from "./modulos/index.js";
 
 
@@ -132,3 +133,15 @@ const prompt = nombre();
 // EJERCICIO 11
 // -------------------------------------------------------------------------------------------
 
+// Definimos un mensaje completo como ejemplo.
+const mensaje = {
+  remitente: "Nicolle",
+  contenido: "Hola Sebastián, recuerda que mañana es el día de velitas y vamos a celebrarlo a las 9pm.",
+  fecha: "2025-12-06"
+};
+
+// Generamos el resumen del mensaje.
+const resumen = generarResumen(mensaje);
+
+// Mostramos el resultado.
+console.log("Resumen del mensaje:", resumen);
