@@ -15,7 +15,8 @@ import {
     filtrarActivos, 
     contarParticipantes, 
     evaluarProyecto,
-    generarRecomendaciones
+    generarRecomendaciones,
+    analizarUsuarios
 } from "./modulos/index.js";
 
 
@@ -220,24 +221,73 @@ const prompt = nombre();
 // EJERCICIO 15
 // -------------------------------------------------------------------------------------------
 
-// Definimos un arreglo de cursos completados por el aprendiz.
-const cursos = [
-  { nombre: "JavaScript Básico", calificacion: 50, horas: 40, intentos: 1, finalizado: true },
-  { nombre: "Python Básico", calificacion: 85, horas: 20, intentos: 2, finalizado: true },
-  { nombre: "SQL Intermedio", calificacion: 40, horas: 15, intentos: 3, finalizado: false },
-  { nombre: "Html Avanzado", calificacion: 90, horas: 10, intentos: 1, finalizado: true }
+// // Definimos un arreglo de cursos completados por el aprendiz.
+// const cursos = [
+//   { nombre: "JavaScript Básico", calificacion: 50, horas: 40, intentos: 1, finalizado: true },
+//   { nombre: "Python Básico", calificacion: 85, horas: 20, intentos: 2, finalizado: true },
+//   { nombre: "SQL Intermedio", calificacion: 40, horas: 15, intentos: 3, finalizado: false },
+//   { nombre: "Html Avanzado", calificacion: 90, horas: 10, intentos: 1, finalizado: true }
+// ];
+
+// // Ejemplo 1: Callback para recomendar cursos con calificación baja (< 60).
+// const criterioRefuerzo = curso => curso.calificacion < 60 ? 3 : 0;
+
+// // Ejemplo 2: Callback para recomendar cursos no finalizados.
+// const criterioNoFinalizados = curso => !curso.finalizado ? 2 : 0;
+
+// // Ejemplo 3: Callback para recomendar cursos con pocas horas (< 15) pero buena calificación (> 80).
+// const criterioEficiencia = curso => (curso.horas < 15 && curso.calificacion > 80) ? 4 : 0;
+
+// // Aplicamos los criterios
+// console.log("Recomendaciones por refuerzo:", generarRecomendaciones(cursos, criterioRefuerzo));
+// console.log("Recomendaciones por cursos no finalizados:", generarRecomendaciones(cursos, criterioNoFinalizados));
+// console.log("Recomendaciones por eficiencia:", generarRecomendaciones(cursos, criterioEficiencia));
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 16
+// -------------------------------------------------------------------------------------------
+
+// Definimos un arreglo de usuarios como ejemplo.
+const usuarios = [
+  { id: 1, nombre: "Juan", publicaciones: ["inapropiado"], reportes: [1,2,3,4,5,6], fechaRegistro: "2025-11-20", estado: "activo" },
+  { id: 2, nombre: "Karol", publicaciones: ["normal"], reportes: [1,2], fechaRegistro: "2025-09-01", estado: "activo" },
+  { id: 3, nombre: "Frank", publicaciones: [], reportes: [1,2,3], fechaRegistro: "2025-12-01", estado: "activo" }
 ];
 
-// Ejemplo 1: Callback para recomendar cursos con calificación baja (< 60).
-const criterioRefuerzo = curso => curso.calificacion < 60 ? 3 : 0;
+// Definimos un callback de análisis de riesgo
+const callbackAnalisis = usuario => {
+  let nivel = 0;
+  let motivo = "Sin riesgo";
 
-// Ejemplo 2: Callback para recomendar cursos no finalizados.
-const criterioNoFinalizados = curso => !curso.finalizado ? 2 : 0;
+  // Regla 1: más de 5 reportes = nivel mínimo 3
+  if (usuario.reportes.length > 5) {
+    nivel = 3;
+    motivo = "Más de 5 reportes";
+  }
 
-// Ejemplo 3: Callback para recomendar cursos con pocas horas (< 15) pero buena calificación (> 80).
-const criterioEficiencia = curso => (curso.horas < 15 && curso.calificacion > 80) ? 4 : 0;
+  // Regla 2: publicaciones inapropiadas aumentan riesgo
+  if (usuario.publicaciones.includes("inapropiado")) {
+    nivel = Math.max(nivel, 4);
+    motivo = "Publicaciones inapropiadas";
+  }
 
-// Aplicamos los criterios
-console.log("Recomendaciones por refuerzo:", generarRecomendaciones(cursos, criterioRefuerzo));
-console.log("Recomendaciones por cursos no finalizados:", generarRecomendaciones(cursos, criterioNoFinalizados));
-console.log("Recomendaciones por eficiencia:", generarRecomendaciones(cursos, criterioEficiencia));
+  // Regla 3: usuario nuevo (< 30 días) con reportes aumenta riesgo
+  const diasDesdeRegistro = (Date.now() - new Date(usuario.fechaRegistro).getTime()) / (1000 * 60 * 60 * 24);
+  if (diasDesdeRegistro < 30 && usuario.reportes.length > 0) {
+    nivel = Math.max(nivel, 5);
+    motivo = "Usuario nuevo con reportes";
+  }
+
+  return {
+    sospechoso: nivel > 0,
+    nivel,
+    motivo
+  };
+};
+
+// Ejecutamos el análisis
+const reporte = analizarUsuarios(usuarios, callbackAnalisis);
+
+// Mostramos el resultado
+console.log("Informe global:", reporte.informe);
+console.log("Detalle de usuarios:", reporte.detalle);
