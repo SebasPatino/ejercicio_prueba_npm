@@ -10,7 +10,8 @@ import {
     procesarPagos,
     fusionarUsuarios,
     generarResumen,
-    seleccionarPaciente
+    seleccionarPaciente,
+    analizarGastos
 } from "./modulos/index.js";
 
 
@@ -151,16 +152,35 @@ const prompt = nombre();
 // EJERCICIO 12
 // -------------------------------------------------------------------------------------------
 
-// Definimos un arreglo de pacientes como ejemplo.
-const pacientes = [
-  { nombre: "Juan", prioridad: 2, edad: 30 },
-  { nombre: "Karol", prioridad: 3, edad: 25 },
-  { nombre: "Sebastián", prioridad: 3, edad: 40 }, // mismo nivel que Karol, pero mayor edad
-  { nombre: "Nicolle", prioridad: 1, edad: 50 }
+// // Definimos un arreglo de pacientes como ejemplo.
+// const pacientes = [
+//   { nombre: "Juan", prioridad: 2, edad: 30 },
+//   { nombre: "Karol", prioridad: 3, edad: 25 },
+//   { nombre: "Sebastián", prioridad: 3, edad: 40 }, // mismo nivel que Karol, pero mayor edad
+//   { nombre: "Nicolle", prioridad: 1, edad: 50 }
+// ];
+
+// // Seleccionamos al paciente con mayor prioridad.
+// const pacienteSeleccionado = seleccionarPaciente(pacientes);
+
+// // Mostramos el resultado.
+// console.log("Paciente seleccionado:", pacienteSeleccionado);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 13
+// -------------------------------------------------------------------------------------------
+
+// Definimos un arreglo de gastos como ejemplo.
+const gastos = [
+  { categoria: "Alimentación", monto: 300 },
+  { categoria: "Transporte", monto: 150 },
+  { categoria: "Entretenimiento", monto: 200 },
+  { categoria: "Alimentación", monto: 250 },
+  { categoria: "Educación", monto: 400 }
 ];
 
-// Seleccionamos al paciente con mayor prioridad.
-const pacienteSeleccionado = seleccionarPaciente(pacientes);
+// Analizamos los gastos.
+const reporte = analizarGastos(gastos);
 
 // Mostramos el resultado.
-console.log("Paciente seleccionado:", pacienteSeleccionado);
+console.log("Reporte financiero:", reporte);
