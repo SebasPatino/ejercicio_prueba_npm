@@ -7,7 +7,8 @@ import {
     calcularNeto, 
     registrarProductos,
     buscarCursos,
-    procesarPagos
+    procesarPagos,
+    fusionarUsuarios
 } from "./modulos/index.js";
 
 
@@ -82,25 +83,52 @@ const prompt = nombre();
 // EJERCICIO 9
 // -------------------------------------------------------------------------------------------
 
-// Definimos un listado de pagos como ejemplo.
-const pagos = [
-  { id: 1, cliente: "Juan", monto: 500, metodo: "Tarjeta" },
-  { id: 2, cliente: "Karol", monto: 200, metodo: "Efectivo" },
-  { id: 3, cliente: "Sebastián", monto: 1000, metodo: "Transferencia" },
-  { id: 4, cliente: "Nicolle", monto: 50, metodo: "Efectivo" }
-];
+// // Definimos un listado de pagos como ejemplo.
+// const pagos = [
+//   { id: 1, cliente: "Juan", monto: 500, metodo: "Tarjeta" },
+//   { id: 2, cliente: "Karol", monto: 200, metodo: "Efectivo" },
+//   { id: 3, cliente: "Sebastián", monto: 1000, metodo: "Transferencia" },
+//   { id: 4, cliente: "Nicolle", monto: 50, metodo: "Efectivo" }
+// ];
 
-// Ejemplo 1: Regla de aprobación por monto mínimo (>= 200)
-const reglaMonto = pago => pago.monto >= 200;
-const resultadoMonto = procesarPagos(pagos, reglaMonto);
-console.log("Resultado por monto mínimo:", resultadoMonto);
+// // Ejemplo 1: Regla de aprobación por monto mínimo (>= 200)
+// const reglaMonto = pago => pago.monto >= 200;
+// const resultadoMonto = procesarPagos(pagos, reglaMonto);
+// console.log("Resultado por monto mínimo:", resultadoMonto);
 
-// Ejemplo 2: Regla de aprobación por método de pago (solo Tarjeta o Transferencia)
-const reglaMetodo = pago => pago.metodo !== "Efectivo";
-const resultadoMetodo = procesarPagos(pagos, reglaMetodo);
-console.log("Resultado por método de pago:", resultadoMetodo);
+// // Ejemplo 2: Regla de aprobación por método de pago (solo Tarjeta o Transferencia)
+// const reglaMetodo = pago => pago.metodo !== "Efectivo";
+// const resultadoMetodo = procesarPagos(pagos, reglaMetodo);
+// console.log("Resultado por método de pago:", resultadoMetodo);
 
-// Ejemplo 3: Regla combinada (monto >= 300 y método distinto de Efectivo)
-const reglaCombinada = pago => pago.monto >= 300 && pago.metodo !== "Efectivo";
-const resultadoCombinada = procesarPagos(pagos, reglaCombinada);
-console.log("Resultado combinado:", resultadoCombinada);
+// // Ejemplo 3: Regla combinada (monto >= 300 y método distinto de Efectivo)
+// const reglaCombinada = pago => pago.monto >= 300 && pago.metodo !== "Efectivo";
+// const resultadoCombinada = procesarPagos(pagos, reglaCombinada);
+// console.log("Resultado combinado:", resultadoCombinada);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 10
+// -------------------------------------------------------------------------------------------
+
+// // Lista de usuarios del sistema A
+// const usuariosA = [
+//   { documento: "101", nombre: "Juan" },
+//   { documento: "102", nombre: "Karol", correo: "karol@gmail.com" }
+// ];
+
+// // Lista de usuarios del sistema B
+// const usuariosB = [
+//   { documento: "101", nombre: "Juan", correo: "juan@mail.com", telefono: "3125916383" },
+//   { documento: "103", nombre: "Nicolle" }
+// ];
+
+// // Fusionamos las listas
+// const usuariosFinal = fusionarUsuarios(usuariosA, usuariosB);
+
+// // Mostramos el resultado
+// console.log("Lista final de usuarios:", usuariosFinal);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 11
+// -------------------------------------------------------------------------------------------
+
