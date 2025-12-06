@@ -14,7 +14,8 @@ import {
     analizarGastos,
     filtrarActivos, 
     contarParticipantes, 
-    evaluarProyecto
+    evaluarProyecto,
+    generarRecomendaciones
 } from "./modulos/index.js";
 
 
@@ -192,25 +193,51 @@ const prompt = nombre();
 // EJERCICIO 14
 // -------------------------------------------------------------------------------------------
 
-// Definimos un arreglo de proyectos como ejemplo.
-const proyectos = [
-  { nombre: "Plataforma Web", estado: "activo", participantes: ["Juan", "Karol", "Frank"] },
-  { nombre: "App Móvil", estado: "inactivo", participantes: ["Sebastian", "Jasser"] },
-  { nombre: "Sistema IT", estado: "activo", participantes: ["Nicolle"] }
+// // Definimos un arreglo de proyectos como ejemplo.
+// const proyectos = [
+//   { nombre: "Plataforma Web", estado: "activo", participantes: ["Juan", "Karol", "Frank"] },
+//   { nombre: "App Móvil", estado: "inactivo", participantes: ["Sebastian", "Jasser"] },
+//   { nombre: "Sistema IT", estado: "activo", participantes: ["Nicolle"] }
+// ];
+
+// // 1. Filtrar proyectos activos
+// const proyectosActivos = filtrarActivos(proyectos);
+// console.log("Proyectos activos:", proyectosActivos);
+
+// // 2. Contar participantes de cada proyecto activo
+// proyectosActivos.forEach(p => {
+//   console.log(`Proyecto: ${p.nombre}, Participantes: ${contarParticipantes(p)}`);
+// });
+
+// // 3. Evaluar proyectos con un callback
+// // Ejemplo de regla: si tiene menos de 2 participantes, requiere refuerzo.
+// const reglaRefuerzo = proyecto => proyecto.participantes.length < 2;
+
+// const informes = proyectosActivos.map(p => evaluarProyecto(p, reglaRefuerzo));
+// console.log("Informes finales:", informes);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 15
+// -------------------------------------------------------------------------------------------
+
+// Definimos un arreglo de cursos completados por el aprendiz.
+const cursos = [
+  { nombre: "JavaScript Básico", calificacion: 50, horas: 40, intentos: 1, finalizado: true },
+  { nombre: "Python Básico", calificacion: 85, horas: 20, intentos: 2, finalizado: true },
+  { nombre: "SQL Intermedio", calificacion: 40, horas: 15, intentos: 3, finalizado: false },
+  { nombre: "Html Avanzado", calificacion: 90, horas: 10, intentos: 1, finalizado: true }
 ];
 
-// 1. Filtrar proyectos activos
-const proyectosActivos = filtrarActivos(proyectos);
-console.log("Proyectos activos:", proyectosActivos);
+// Ejemplo 1: Callback para recomendar cursos con calificación baja (< 60).
+const criterioRefuerzo = curso => curso.calificacion < 60 ? 3 : 0;
 
-// 2. Contar participantes de cada proyecto activo
-proyectosActivos.forEach(p => {
-  console.log(`Proyecto: ${p.nombre}, Participantes: ${contarParticipantes(p)}`);
-});
+// Ejemplo 2: Callback para recomendar cursos no finalizados.
+const criterioNoFinalizados = curso => !curso.finalizado ? 2 : 0;
 
-// 3. Evaluar proyectos con un callback
-// Ejemplo de regla: si tiene menos de 2 participantes, requiere refuerzo.
-const reglaRefuerzo = proyecto => proyecto.participantes.length < 2;
+// Ejemplo 3: Callback para recomendar cursos con pocas horas (< 15) pero buena calificación (> 80).
+const criterioEficiencia = curso => (curso.horas < 15 && curso.calificacion > 80) ? 4 : 0;
 
-const informes = proyectosActivos.map(p => evaluarProyecto(p, reglaRefuerzo));
-console.log("Informes finales:", informes);
+// Aplicamos los criterios
+console.log("Recomendaciones por refuerzo:", generarRecomendaciones(cursos, criterioRefuerzo));
+console.log("Recomendaciones por cursos no finalizados:", generarRecomendaciones(cursos, criterioNoFinalizados));
+console.log("Recomendaciones por eficiencia:", generarRecomendaciones(cursos, criterioEficiencia));

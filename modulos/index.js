@@ -7,6 +7,7 @@ import { generarResumen } from "./ejercicio11/ejercicio11.js";
 import { seleccionarPaciente } from "./ejercicio12/ejercicio12.js";
 import { analizarGastos } from "./ejercicio13/ejercicio13.js";
 import { filtrarActivos, contarParticipantes, evaluarProyecto } from "./ejercicio14/ejercicio14.js";
+import { generarRecomendaciones } from "./ejercicio15/ejercicio15.js";
 
 export * from "./ejercicio6/ejercicio6.js";
 export * from "./ejercicio7/ejercicio7.js";
@@ -17,3 +18,4 @@ export * from "./ejercicio11/ejercicio11.js";
 export * from "./ejercicio12/ejercicio12.js";
 export * from "./ejercicio13/ejercicio13.js";
 export * from "./ejercicio14/ejercicio14.js";
+export * from "./ejercicio15/ejercicio15.js";
