@@ -11,7 +11,10 @@ import {
     fusionarUsuarios,
     generarResumen,
     seleccionarPaciente,
-    analizarGastos
+    analizarGastos,
+    filtrarActivos, 
+    contarParticipantes, 
+    evaluarProyecto
 } from "./modulos/index.js";
 
 
@@ -170,17 +173,44 @@ const prompt = nombre();
 // EJERCICIO 13
 // -------------------------------------------------------------------------------------------
 
-// Definimos un arreglo de gastos como ejemplo.
-const gastos = [
-  { categoria: "Alimentación", monto: 300 },
-  { categoria: "Transporte", monto: 150 },
-  { categoria: "Entretenimiento", monto: 200 },
-  { categoria: "Alimentación", monto: 250 },
-  { categoria: "Educación", monto: 400 }
+// // Definimos un arreglo de gastos como ejemplo.
+// const gastos = [
+//   { categoria: "Alimentación", monto: 300 },
+//   { categoria: "Transporte", monto: 150 },
+//   { categoria: "Entretenimiento", monto: 200 },
+//   { categoria: "Alimentación", monto: 250 },
+//   { categoria: "Educación", monto: 400 }
+// ];
+
+// // Analizamos los gastos.
+// const reporte = analizarGastos(gastos);
+
+// // Mostramos el resultado.
+// console.log("Reporte financiero:", reporte);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 14
+// -------------------------------------------------------------------------------------------
+
+// Definimos un arreglo de proyectos como ejemplo.
+const proyectos = [
+  { nombre: "Plataforma Web", estado: "activo", participantes: ["Juan", "Karol", "Frank"] },
+  { nombre: "App Móvil", estado: "inactivo", participantes: ["Sebastian", "Jasser"] },
+  { nombre: "Sistema IT", estado: "activo", participantes: ["Nicolle"] }
 ];
 
-// Analizamos los gastos.
-const reporte = analizarGastos(gastos);
+// 1. Filtrar proyectos activos
+const proyectosActivos = filtrarActivos(proyectos);
+console.log("Proyectos activos:", proyectosActivos);
 
-// Mostramos el resultado.
-console.log("Reporte financiero:", reporte);
+// 2. Contar participantes de cada proyecto activo
+proyectosActivos.forEach(p => {
+  console.log(`Proyecto: ${p.nombre}, Participantes: ${contarParticipantes(p)}`);
+});
+
+// 3. Evaluar proyectos con un callback
+// Ejemplo de regla: si tiene menos de 2 participantes, requiere refuerzo.
+const reglaRefuerzo = proyecto => proyecto.participantes.length < 2;
+
+const informes = proyectosActivos.map(p => evaluarProyecto(p, reglaRefuerzo));
+console.log("Informes finales:", informes);
