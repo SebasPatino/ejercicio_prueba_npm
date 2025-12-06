@@ -2,6 +2,8 @@ import nombre from "prompt-sync";
 
 // Importamos las funciones
 import { 
+    calcularPromedio,
+    calcularInventario,
     calcularSalarioBase, 
     calcularDeducciones, 
     calcularNeto, 
@@ -24,6 +26,53 @@ import {
 const intro = nombre();
 
 const prompt = nombre();
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 1
+// -------------------------------------------------------------------------------------------
+
+  // Creamos un arreglo vacío para almacenar los productos
+  const inventario = [];
+
+  // Pedimos al usuario la cantidad de productos que desea registrar
+  const cantidad = parseInt(prompt("¿Cuántos productos desea registrar? "));
+
+  // Usamos un ciclo for para pedir los datos de cada producto
+  for (let i = 0; i < cantidad; i++) {
+    let nombre;
+    let cantidadProducto;
+
+    // Validación persistente: repetimos hasta que el usuario ingrese un nombre válido
+    do {
+      nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
+    } while (!nombre || nombre.trim() === "");
+
+    // Validación persistente: repetimos hasta que el usuario ingrese una cantidad válida
+    do {
+      cantidadProducto = parseInt(prompt(`Ingrese la cantidad del producto "${nombre}": `));
+    } while (isNaN(cantidadProducto) || cantidadProducto < 0);
+
+    // Agregamos el producto al inventario
+    inventario.push({ nombre, cantidad: cantidadProducto });
+  }
+
+  // Mostramos el inventario en consola
+  console.log("Inventario registrado:");
+  inventario.forEach(p => console.log(`${p.nombre}: ${p.cantidad}`));
+
+  // Ejemplo de uso de la función auxiliar calcularInventario
+  const cantidadInicial = parseInt(prompt("Ingrese cantidad inicial: "));
+  const cantidadVendida = parseInt(prompt("Ingrese cantidad vendida: "));
+  const cantidadRecibida = parseInt(prompt("Ingrese cantidad recibida: "));
+
+  const resultado = calcularInventario(cantidadInicial, cantidadVendida, cantidadRecibida);
+  console.log(resultado)
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 2
+// -------------------------------------------------------------------------------------------
+
+
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 6
@@ -297,24 +346,24 @@ const prompt = nombre();
 // EJERCICIO 17
 // -------------------------------------------------------------------------------------------
 
-// Inventario de ejemplo
-const inventario = [
-  { id: 1, nombre: "Leche", categoria: "Lácteos", stock: 10, precio: 2.5, perecedero: true, fechaVencimiento: "2025-12-10" },
-  { id: 2, nombre: "Arroz", categoria: "Granos", stock: 50, precio: 1.2, perecedero: false },
-  { id: 3, nombre: "Carne", categoria: "Cárnicos", stock: 5, precio: 8.0, perecedero: true, fechaVencimiento: "2025-12-08" },
-  { id: 4, nombre: "Pan", categoria: "Panadería", stock: 20, precio: 1.5, perecedero: true, fechaVencimiento: "2025-12-07" }
-];
+// // Inventario de ejemplo
+// const inventario = [
+//   { id: 1, nombre: "Leche", categoria: "Lácteos", stock: 10, precio: 2.5, perecedero: true, fechaVencimiento: "2025-12-10" },
+//   { id: 2, nombre: "Arroz", categoria: "Granos", stock: 50, precio: 1.2, perecedero: false },
+//   { id: 3, nombre: "Carne", categoria: "Cárnicos", stock: 5, precio: 8.0, perecedero: true, fechaVencimiento: "2025-12-08" },
+//   { id: 4, nombre: "Pan", categoria: "Panadería", stock: 20, precio: 1.5, perecedero: true, fechaVencimiento: "2025-12-07" }
+// ];
 
-// Callback de control: ejemplo de regla personalizada
-const reglaControl = producto => {
-  if (producto.stock < 10) return "retirar";
-  if (producto.perecedero) return "vigilar";
-  if (producto.precio > 5) return "ajustar precio";
-  return "estable";
-};
+// // Callback de control: ejemplo de regla personalizada
+// const reglaControl = producto => {
+//   if (producto.stock < 10) return "retirar";
+//   if (producto.perecedero) return "vigilar";
+//   if (producto.precio > 5) return "ajustar precio";
+//   return "estable";
+// };
 
-// Procesamos el inventario
-const reporte = procesarInventario(inventario, reglaControl);
+// // Procesamos el inventario
+// const reporte = procesarInventario(inventario, reglaControl);
 
-// Mostramos el informe
-console.log("Informe completo del inventario:", reporte);
+// // Mostramos el informe
+// console.log("Informe completo del inventario:", reporte);
