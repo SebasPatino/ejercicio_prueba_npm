@@ -9,7 +9,8 @@ import {
     buscarCursos,
     procesarPagos,
     fusionarUsuarios,
-    generarResumen
+    generarResumen,
+    seleccionarPaciente
 } from "./modulos/index.js";
 
 
@@ -133,15 +134,33 @@ const prompt = nombre();
 // EJERCICIO 11
 // -------------------------------------------------------------------------------------------
 
-// Definimos un mensaje completo como ejemplo.
-const mensaje = {
-  remitente: "Nicolle",
-  contenido: "Hola Sebastián, recuerda que mañana es el día de velitas y vamos a celebrarlo a las 9pm.",
-  fecha: "2025-12-06"
-};
+// // Definimos un mensaje completo como ejemplo.
+// const mensaje = {
+//   remitente: "Nicolle",
+//   contenido: "Hola Sebastián, recuerda que mañana es el día de velitas y vamos a celebrarlo a las 9pm.",
+//   fecha: "2025-12-06"
+// };
 
-// Generamos el resumen del mensaje.
-const resumen = generarResumen(mensaje);
+// // Generamos el resumen del mensaje.
+// const resumen = generarResumen(mensaje);
+
+// // Mostramos el resultado.
+// console.log("Resumen del mensaje:", resumen);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 12
+// -------------------------------------------------------------------------------------------
+
+// Definimos un arreglo de pacientes como ejemplo.
+const pacientes = [
+  { nombre: "Juan", prioridad: 2, edad: 30 },
+  { nombre: "Karol", prioridad: 3, edad: 25 },
+  { nombre: "Sebastián", prioridad: 3, edad: 40 }, // mismo nivel que Karol, pero mayor edad
+  { nombre: "Nicolle", prioridad: 1, edad: 50 }
+];
+
+// Seleccionamos al paciente con mayor prioridad.
+const pacienteSeleccionado = seleccionarPaciente(pacientes);
 
 // Mostramos el resultado.
-console.log("Resumen del mensaje:", resumen);
+console.log("Paciente seleccionado:", pacienteSeleccionado);
