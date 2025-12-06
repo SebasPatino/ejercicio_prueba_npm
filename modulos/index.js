@@ -1,5 +1,6 @@
 import { calcularPromedio } from "./ejercicio1/ejercicio1.js";
 import { calcularInventario } from "./ejercicio2/ejercicio2.js";
+import { calcularPromedioo } from "./ejercicio3/ejercicio3.js";
 import { calcularSalarioBase, calcularDeducciones, calcularNeto } from "./ejercicio6/ejercicio6.js";
 import { registrarProductos } from "./ejercicio7/ejercicio7.js";
 import { buscarCursos } from "./ejercicio8/ejercicio8.js";
@@ -15,6 +16,7 @@ import { procesarInventario } from "./ejercicio17/ejercicio17.js";
 
 export * from "./ejercicio1/ejercicio1.js";
 export * from "./ejercicio2/ejercicio2.js";
+export * from "./ejercicio3/ejercicio3.js";
 export * from "./ejercicio6/ejercicio6.js";
 export * from "./ejercicio7/ejercicio7.js";
 export * from "./ejercicio8/ejercicio8.js";

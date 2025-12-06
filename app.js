@@ -4,6 +4,7 @@ import nombre from "prompt-sync";
 import { 
     calcularPromedio,
     calcularInventario,
+    calcularPromedioo,
     calcularSalarioBase, 
     calcularDeducciones, 
     calcularNeto, 
@@ -31,23 +32,23 @@ const prompt = nombre();
 // EJERCICIO 1
 // -------------------------------------------------------------------------------------------
 
-// Pedimos la cantidad de notas
-const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
+// // Pedimos la cantidad de notas
+// const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
 
-// Creamos un arreglo vacío para almacenar las notas
-const notas = [];
+// // Creamos un arreglo vacío para almacenar las notas
+// const notas = [];
 
-// Usamos un ciclo for para pedir cada nota
-for (let i = 0; i < cantidad; i++) {
-   const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
-   notas.push(nota);
-}
+// // Usamos un ciclo for para pedir cada nota
+// for (let i = 0; i < cantidad; i++) {
+//    const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
+//    notas.push(nota);
+// }
 
-// Calculamos el promedio usando la función auxiliar
-const promedio = calcularPromedio(notas);
+// // Calculamos el promedio usando la función auxiliar
+// const promedio = calcularPromedio(notas);
 
-// Mostramos el resultado
-console.log(`El promedio de las notas es: ${promedio.toFixed(2)}`);
+// // Mostramos el resultado
+// console.log(`El promedio de las notas es: ${promedio.toFixed(2)}`);
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 2
@@ -89,6 +90,29 @@ console.log(`El promedio de las notas es: ${promedio.toFixed(2)}`);
 
 // const resultado = calcularInventario(cantidadInicial, cantidadVendida, cantidadRecibida);
 // console.log(resultado)
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 3
+// -------------------------------------------------------------------------------------------
+
+// Pedimos al usuario la cantidad de notas
+const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
+
+// Creamos un arreglo vacío para almacenar las notas
+const notas = [];
+
+// Usamos un ciclo for para pedir cada nota
+for (let i = 0; i < cantidad; i++) {
+   const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
+   notas.push(nota);
+}
+
+// Llamamos a la función calcularPromedio
+const resultado = calcularPromedioo(notas);
+
+// Mostramos el resultado en consola
+console.log(`Su promedio final es: ${resultado.promedio.toFixed(1)}`);
+console.log(`Rendimiento: ${resultado.rendimiento}`);
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 6
