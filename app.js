@@ -31,48 +31,64 @@ const prompt = nombre();
 // EJERCICIO 1
 // -------------------------------------------------------------------------------------------
 
-  // Creamos un arreglo vacío para almacenar los productos
-  const inventario = [];
+// Pedimos la cantidad de notas
+const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
 
-  // Pedimos al usuario la cantidad de productos que desea registrar
-  const cantidad = parseInt(prompt("¿Cuántos productos desea registrar? "));
+// Creamos un arreglo vacío para almacenar las notas
+const notas = [];
 
-  // Usamos un ciclo for para pedir los datos de cada producto
-  for (let i = 0; i < cantidad; i++) {
-    let nombre;
-    let cantidadProducto;
+// Usamos un ciclo for para pedir cada nota
+for (let i = 0; i < cantidad; i++) {
+   const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
+   notas.push(nota);
+}
 
-    // Validación persistente: repetimos hasta que el usuario ingrese un nombre válido
-    do {
-      nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
-    } while (!nombre || nombre.trim() === "");
+// Calculamos el promedio usando la función auxiliar
+const promedio = calcularPromedio(notas);
 
-    // Validación persistente: repetimos hasta que el usuario ingrese una cantidad válida
-    do {
-      cantidadProducto = parseInt(prompt(`Ingrese la cantidad del producto "${nombre}": `));
-    } while (isNaN(cantidadProducto) || cantidadProducto < 0);
-
-    // Agregamos el producto al inventario
-    inventario.push({ nombre, cantidad: cantidadProducto });
-  }
-
-  // Mostramos el inventario en consola
-  console.log("Inventario registrado:");
-  inventario.forEach(p => console.log(`${p.nombre}: ${p.cantidad}`));
-
-  // Ejemplo de uso de la función auxiliar calcularInventario
-  const cantidadInicial = parseInt(prompt("Ingrese cantidad inicial: "));
-  const cantidadVendida = parseInt(prompt("Ingrese cantidad vendida: "));
-  const cantidadRecibida = parseInt(prompt("Ingrese cantidad recibida: "));
-
-  const resultado = calcularInventario(cantidadInicial, cantidadVendida, cantidadRecibida);
-  console.log(resultado)
+// Mostramos el resultado
+console.log(`El promedio de las notas es: ${promedio.toFixed(2)}`);
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 2
 // -------------------------------------------------------------------------------------------
 
+// // Creamos un arreglo vacío para almacenar los productos
+// const inventario = [];
 
+// // Pedimos al usuario la cantidad de productos que desea registrar
+// const cantidad = parseInt(prompt("¿Cuántos productos desea registrar? "));
+
+// // Usamos un ciclo for para pedir los datos de cada producto
+// for (let i = 0; i < cantidad; i++) {
+//     let nombre;
+//     let cantidadProducto;
+
+//     // Validación persistente: repetimos hasta que el usuario ingrese un nombre válido
+//     do {
+//       nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
+//     } while (!nombre || nombre.trim() === "");
+
+//     // Validación persistente: repetimos hasta que el usuario ingrese una cantidad válida
+//     do {
+//       cantidadProducto = parseInt(prompt(`Ingrese la cantidad del producto "${nombre}": `));
+//     } while (isNaN(cantidadProducto) || cantidadProducto < 0);
+
+//     // Agregamos el producto al inventario
+//     inventario.push({ nombre, cantidad: cantidadProducto });
+// }
+
+// // Mostramos el inventario en consola
+// console.log("Inventario registrado:");
+// inventario.forEach(p => console.log(`${p.nombre}: ${p.cantidad}`));
+
+// // Ejemplo de uso de la función auxiliar calcularInventario
+// const cantidadInicial = parseInt(prompt("Ingrese cantidad inicial: "));
+// const cantidadVendida = parseInt(prompt("Ingrese cantidad vendida: "));
+// const cantidadRecibida = parseInt(prompt("Ingrese cantidad recibida: "));
+
+// const resultado = calcularInventario(cantidadInicial, cantidadVendida, cantidadRecibida);
+// console.log(resultado)
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 6
