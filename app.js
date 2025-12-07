@@ -5,6 +5,7 @@ import {
     calcularPromedio,
     calcularInventario,
     calcularPromedioo,
+    ordenarProductos,
     calcularSalarioBase, 
     calcularDeducciones, 
     calcularNeto, 
@@ -95,24 +96,54 @@ const prompt = nombre();
 // EJERCICIO 3
 // -------------------------------------------------------------------------------------------
 
-// Pedimos al usuario la cantidad de notas
-const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
+// // Pedimos al usuario la cantidad de notas
+// const cantidad = parseInt(prompt("¿Cuántas notas desea ingresar? "));
 
-// Creamos un arreglo vacío para almacenar las notas
-const notas = [];
+// // Creamos un arreglo vacío para almacenar las notas
+// const notas = [];
 
-// Usamos un ciclo for para pedir cada nota
+// // Usamos un ciclo for para pedir cada nota
+// for (let i = 0; i < cantidad; i++) {
+//    const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
+//    notas.push(nota);
+// }
+
+// // Llamamos a la función calcularPromedio
+// const resultado = calcularPromedioo(notas);
+
+// // Mostramos el resultado en consola
+// console.log(`Su promedio final es: ${resultado.promedio.toFixed(1)}`);
+// console.log(`Rendimiento: ${resultado.rendimiento}`);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 4
+// -------------------------------------------------------------------------------------------
+
+// Pedimos al usuario la cantidad de productos
+const cantidad = parseInt(prompt("¿Cuántos productos desea ingresar? "));
+
+// Creamos un arreglo vacío para almacenar los objetos
+const productos = [];
+
+// Usamos un ciclo for para pedir cada producto y su precio
 for (let i = 0; i < cantidad; i++) {
-   const nota = parseFloat(prompt(`Ingrese la nota #${i + 1}: `));
-   notas.push(nota);
+   const nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
+   const precio = parseFloat(prompt(`Ingrese el precio del producto "${nombre}": `));
+
+   // Creamos un objeto y lo agregamos al arreglo
+   productos.push({ nombre, precio });
 }
 
-// Llamamos a la función calcularPromedio
-const resultado = calcularPromedioo(notas);
+// Llamamos a la función ordenarProductos con el arreglo de objetos
+const resultado = ordenarProductos(productos);
 
-// Mostramos el resultado en consola
-console.log(`Su promedio final es: ${resultado.promedio.toFixed(1)}`);
-console.log(`Rendimiento: ${resultado.rendimiento}`);
+// Mostramos los resultados en consola
+console.log("\nProductos originales:", productos);
+console.log("Productos ordenados (mayor a menor por precio):");
+resultado.ordenados.forEach(p => console.log(`${p.nombre}: $${p.precio}`));
+
+console.log(`\nProducto más caro: ${resultado.productoMaximo.nombre} ($${resultado.productoMaximo.precio})`);
+console.log(`Producto más barato: ${resultado.productoMinimo.nombre} ($${resultado.productoMinimo.precio})`);
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 6
