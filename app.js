@@ -6,6 +6,7 @@ import {
     calcularInventario,
     calcularPromedioo,
     ordenarProductos,
+    validarUsuario,
     calcularSalarioBase, 
     calcularDeducciones, 
     calcularNeto, 
@@ -119,31 +120,49 @@ const prompt = nombre();
 // EJERCICIO 4
 // -------------------------------------------------------------------------------------------
 
-// Pedimos al usuario la cantidad de productos
-const cantidad = parseInt(prompt("¿Cuántos productos desea ingresar? "));
+// // Pedimos al usuario la cantidad de productos
+// const cantidad = parseInt(prompt("¿Cuántos productos desea ingresar? "));
 
-// Creamos un arreglo vacío para almacenar los objetos
-const productos = [];
+// // Creamos un arreglo vacío para almacenar los objetos
+// const productos = [];
 
-// Usamos un ciclo for para pedir cada producto y su precio
-for (let i = 0; i < cantidad; i++) {
-   const nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
-   const precio = parseFloat(prompt(`Ingrese el precio del producto "${nombre}": `));
+// // Usamos un ciclo for para pedir cada producto y su precio
+// for (let i = 0; i < cantidad; i++) {
+//    const nombre = prompt(`Ingrese el nombre del producto #${i + 1}: `);
+//    const precio = parseFloat(prompt(`Ingrese el precio del producto "${nombre}": `));
 
-   // Creamos un objeto y lo agregamos al arreglo
-   productos.push({ nombre, precio });
-}
+//    // Creamos un objeto y lo agregamos al arreglo
+//    productos.push({ nombre, precio });
+// }
 
-// Llamamos a la función ordenarProductos con el arreglo de objetos
-const resultado = ordenarProductos(productos);
+// // Llamamos a la función ordenarProductos con el arreglo de objetos
+// const resultado = ordenarProductos(productos);
 
-// Mostramos los resultados en consola
-console.log("\nProductos originales:", productos);
-console.log("Productos ordenados (mayor a menor por precio):");
-resultado.ordenados.forEach(p => console.log(`${p.nombre}: $${p.precio}`));
+// // Mostramos los resultados en consola
+// console.log("\nProductos originales:", productos);
+// console.log("Productos ordenados (mayor a menor por precio):");
+// resultado.ordenados.forEach(p => console.log(`${p.nombre}: $${p.precio}`));
 
-console.log(`\nProducto más caro: ${resultado.productoMaximo.nombre} ($${resultado.productoMaximo.precio})`);
-console.log(`Producto más barato: ${resultado.productoMinimo.nombre} ($${resultado.productoMinimo.precio})`);
+// console.log(`\nProducto más caro: ${resultado.productoMaximo.nombre} ($${resultado.productoMaximo.precio})`);
+// console.log(`Producto más barato: ${resultado.productoMinimo.nombre} ($${resultado.productoMinimo.precio})`);
+
+// -------------------------------------------------------------------------------------------
+// EJERCICIO 5
+// -------------------------------------------------------------------------------------------
+
+// // Definimos algunos usuarios de ejemplo
+// const usuarios = [
+//   { nombre: "Juan", estado: "activo", rol: "admin" },
+//   { nombre: "María", estado: "activo", rol: "editor" },
+//   { nombre: "Pedro", estado: "activo", rol: "lector" },
+//   { nombre: "Ana", estado: "inactivo", rol: "admin" },
+//   { nombre: "Luis", estado: "activo", rol: "supervisor" } // rol desconocido
+// ];
+
+// // Probamos la función con cada usuario
+// usuarios.forEach(u => {
+//   console.log(validarUsuario(u));
+// });
 
 // -------------------------------------------------------------------------------------------
 // EJERCICIO 6
